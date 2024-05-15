@@ -11,7 +11,6 @@ import {
   Keyboard,
 } from "react-native";
 const SplashScreen = ({ navigation }) => {
-  console.log(navigation);
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Image
@@ -20,7 +19,7 @@ const SplashScreen = ({ navigation }) => {
         style={styles.Logo}
       />
       <Pressable onPress={() => navigation.navigate("Profile")}>
-        <Text> Loadinfg</Text>
+        <Text> Loading</Text>
       </Pressable>
     </View>
   );

@@ -108,6 +108,8 @@ const Profile = ({ navigation }) => {
       SpecialOffers: false,
       NewsLetter: false,
     });
+    console.log(email, firstName);
+    //navigation.popToTop();
   };
 
   useEffect(() => {

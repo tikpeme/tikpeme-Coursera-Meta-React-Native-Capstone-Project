@@ -22,7 +22,7 @@ const Onboarding = () => {
     useContext(personalDataContext);
 
   const [isDisabled, setIsDisabled] = useState(true);
-  console.log(firstName);
+  //console.log(firstName);
   const validateFirstName = (firstName) => {
     const trimmedFirstName = firstName?.trim();
     if (trimmedFirstName && /^[a-zA-Z\s]*$/.test(trimmedFirstName)) {

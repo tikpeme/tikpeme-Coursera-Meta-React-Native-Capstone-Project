@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Onboarding from "./screens/Onboarding";
 import Profile from "./screens/Profile";
 import SplashScreen from "./screens/SplashScreen";
+import Home from "./screens/Home";
 import {
   PersonalDataProvider,
   personalDataContext,
@@ -90,11 +91,11 @@ function AppContent() {
           headerShown: false,
         }}
       >
-        {!onBoardingStatus ? (
+        {onBoardingStatus ? (
           <Stack.Screen name="onBoarding" component={Onboarding}></Stack.Screen>
         ) : (
           <>
-            <Stack.Screen name="Home" component={SplashScreen}></Stack.Screen>
+            <Stack.Screen name="Home" component={Home}></Stack.Screen>
             <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
           </>
         )}
