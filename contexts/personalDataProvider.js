@@ -10,6 +10,8 @@ const PersonalDataProvider = ({ children }) => {
   const [firstName, setFirstName] = useState("Tete");
   const [email, setEmail] = useState("");
   const [onBoardingStatus, setOnBoardingStatus] = useState(false);
+  const [image, setImage] = useState("");
+  const [lastName, setLastName] = useState("");
 
   return (
     <personalDataContext.Provider
@@ -22,6 +24,10 @@ const PersonalDataProvider = ({ children }) => {
         setEmail,
         onBoardingStatus,
         setOnBoardingStatus,
+        image,
+        setImage,
+        lastName,
+        setLastName,
       }}
     >
       {children}

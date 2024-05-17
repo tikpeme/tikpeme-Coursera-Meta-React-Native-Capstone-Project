@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native";
+
 import Onboarding from "./screens/Onboarding";
 import Profile from "./screens/Profile";
 import SplashScreen from "./screens/SplashScreen";
@@ -23,6 +25,8 @@ function AppContent() {
     setEmail,
     onBoardingStatus,
     setOnBoardingStatus,
+    setImage,
+    setLastName,
   } = useContext(personalDataContext);
 
   const Keys = {
@@ -30,31 +34,28 @@ function AppContent() {
     Email: "Email",
     onBoardingStatus: "OnBoardingStatus",
   };
-
   useEffect(() => {
     const getCredentials = async () => {
       setIsLoading(true);
 
       try {
-        const values = await AsyncStorage.multiGet([
-          Keys.First_Name,
-          Keys.Email,
-          Keys.onBoardingStatus,
-        ]);
-
         const onBoardingStatusValue = JSON.parse(
-          values.find((item) => item[0] === Keys.onBoardingStatus)?.[1] ||
-            "false"
+          (await AsyncStorage.getItem(Keys.onBoardingStatus)) || "false"
         );
         setOnBoardingStatus(onBoardingStatusValue);
 
         const firstNameValue =
-          values.find((item) => item[0] === Keys.First_Name)?.[1] || "";
+          (await AsyncStorage.getItem(Keys.First_Name)) || "";
         setFirstName(firstNameValue);
 
-        const emailValue =
-          values.find((item) => item[0] === Keys.Email)?.[1] || "";
+        const emailValue = (await AsyncStorage.getItem(Keys.Email)) || "";
         setEmail(emailValue);
+
+        const imageValue = (await AsyncStorage.getItem("Image")) || "";
+        setImage(imageValue);
+
+        const lastValue = (await AsyncStorage.getItem("Last_Name")) || "";
+        setLastName(lastValue);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -71,9 +72,9 @@ function AppContent() {
     }
   }, [onBoardingStatus]);
 
-  useEffect(() => {
-    console.log(firstName, email, onBoardingStatus);
-  }, [firstName, email, onBoardingStatus]);
+  // useEffect(() => {
+  //   console.log(firstName, email, onBoardingStatus);
+  // }, [firstName, email, onBoardingStatus]);
 
   if (isLoading) {
     return <SplashScreen />;
@@ -85,22 +86,27 @@ function AppContent() {
   );
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {onBoardingStatus ? (
-          <Stack.Screen name="onBoarding" component={Onboarding}></Stack.Screen>
-        ) : (
-          <>
-            <Stack.Screen name="Home" component={Home}></Stack.Screen>
-            <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          {!onBoardingStatus ? (
+            <Stack.Screen
+              name="onBoarding"
+              component={Onboarding}
+            ></Stack.Screen>
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={Home}></Stack.Screen>
+              <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 

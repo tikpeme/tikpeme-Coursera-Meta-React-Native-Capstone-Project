@@ -11,7 +11,7 @@ const handleImagePickerPress = async (Image, setImage) => {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      console.log(Image);
+      //console.log(Image);
     }
   } catch (error) {}
 };

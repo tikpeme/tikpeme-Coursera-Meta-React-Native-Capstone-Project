@@ -25,18 +25,23 @@ import { useContext } from "react";
 import { personalDataContext } from "../contexts/personalDataProvider";
 
 const Profile = ({ navigation }) => {
-  console.log(navigation);
-
-  const { firstName, setFirstName, email, setEmail, setOnBoardingStatus } =
-    useContext(personalDataContext);
+  const {
+    firstName,
+    setFirstName,
+    email,
+    setEmail,
+    setOnBoardingStatus,
+    image,
+    setImage,
+    lastName,
+    setLastName,
+  } = useContext(personalDataContext);
   const [emailPreferences, setEmailPreferences] = useState({
     OrderStatuses: false,
     PasswordChanges: false,
     SpecialOffers: false,
     NewsLetter: false,
   });
-  const [image, setImage] = useState("");
-  const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleCheckBoxInput = (title) => {
@@ -45,7 +50,6 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log(navigation);
     ////console.log(firstName, lastName, phoneNumber, image);
   }, [emailPreferences, image, lastName, phoneNumber, firstName]);
 
@@ -75,7 +79,7 @@ const Profile = ({ navigation }) => {
       await AsyncStorage.setItem("Last_Name", lastName);
       await AsyncStorage.setItem("Email", email);
       await AsyncStorage.setItem("Image", image);
-      await AsyncStorage.setItem("Phone_Number", phoneNumber);
+      await AsyncStorage.setItem("Phone_Number", phoneNumber.toString());
       await AsyncStorage.setItem(
         "Email_Preference",
         JSON.stringify(emailPreferences)
@@ -84,7 +88,7 @@ const Profile = ({ navigation }) => {
       console.error("Error saving data: ", error);
     }
 
-    displayAllData();
+    //displayAllData();
   };
 
   const logOut = async () => {
@@ -95,7 +99,7 @@ const Profile = ({ navigation }) => {
     } catch (error) {
       console.log("Error clearing AsyncStorage:", error);
     }
-    displayAllData();
+    //displayAllData();
 
     setEmail("");
     setFirstName("");
@@ -130,7 +134,7 @@ const Profile = ({ navigation }) => {
         last_Name && setLastName(last_Name);
         email_ && setEmail(email_);
         image_ && setImage(image_);
-        phone_Number && setPhoneNumber(parseInt(phone_Number));
+        phone_Number && setPhoneNumber(phone_Number);
         email_Preferences &&
           setEmailPreferences((prev) => JSON.parse(email_Preferences));
         //console.log(emailPreferences);
@@ -155,7 +159,7 @@ const Profile = ({ navigation }) => {
               {image ? (
                 <Image
                   style={styles.Image}
-                  resizeMode="contain"
+                  resizeMode="cover"
                   source={{ uri: image }}
                 ></Image>
               ) : (
@@ -222,11 +226,10 @@ const Profile = ({ navigation }) => {
                 mask="999-999-9999"
                 style={styles.TextInput}
                 //value={firstName}
+                type="custom"
                 placeholder="999-999-9999"
                 onChangeText={setPhoneNumber}
-              >
-                {}
-              </MaskedTextInput>
+              ></MaskedTextInput>
             </View>
           </View>
 
