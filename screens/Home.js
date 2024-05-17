@@ -188,7 +188,7 @@ const Home = ({ navigation }) => {
               source={{ uri: image }}
             ></Image>
           ) : (
-            <Text style={{ color: "white", fontSize: 60 }}>
+            <Text style={{ color: "white", fontSize: 40 }}>
               {firstName && firstName[0]}
               {lastName[0]}
             </Text>

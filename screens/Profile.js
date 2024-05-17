@@ -11,8 +11,10 @@ import {
   TouchableOpacity,
   Keyboard,
   ScrollView,
+  Alert,
 } from "react-native";
 
+import Icon from "react-native-vector-icons/Ionicons";
 import { CheckBox } from "@rneui/themed"; //https://reactnativeelements.com/docs/components/checkbox#playground
 import { useState, useEffect } from "react";
 import { MaskedTextInput } from "react-native-mask-text";
@@ -84,6 +86,8 @@ const Profile = ({ navigation }) => {
         "Email_Preference",
         JSON.stringify(emailPreferences)
       );
+
+      Alert.alert("", "Profile Updated!");
     } catch (error) {
       console.error("Error saving data: ", error);
     }
@@ -149,7 +153,48 @@ const Profile = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={handlePressOutside}>
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         <View style={styles.header}>
-          <Text>Hello</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Home")}
+            style={{
+              backgroundColor: "#495E57",
+              borderRadius: "100%",
+              width: 50,
+              aspectRatio: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icon size="30" color="white" name="arrow-back"></Icon>
+          </TouchableOpacity>
+          <Image
+            style={{ height: 80, width: 200 }}
+            source={require("../assets/Little-lemon-logo.jpg")}
+            resizeMode="contain"
+          ></Image>
+          <View
+            style={{
+              height: 60,
+              aspectRatio: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 100,
+              backgroundColor: "#63d6c4",
+              overflow: "hidden",
+            }}
+          >
+            {image ? (
+              <Image
+                style={styles.Image}
+                resizeMode="cover"
+                source={{ uri: image }}
+              ></Image>
+            ) : (
+              <Text style={{ color: "white", fontSize: 30 }}>
+                {firstName && firstName[0]}
+                {lastName && lastName[0]}
+              </Text>
+            )}
+          </View>
         </View>
         <View style={styles.body}>
           <Text style={styles.ScreenTitle}>Personal Information</Text>
@@ -314,7 +359,7 @@ const Profile = ({ navigation }) => {
               marginVertical: 40,
             }}
           >
-            <Pressable
+            <View
               style={{
                 backgroundColor: "white",
                 alignItems: "center",
@@ -325,10 +370,9 @@ const Profile = ({ navigation }) => {
                 borderWidth: 1,
                 borderColor: "#495e57",
               }}
-              onPress={() => navigation.popToTop()}
             >
               <Text>Discard changes</Text>
-            </Pressable>
+            </View>
 
             <Pressable
               style={{
@@ -352,9 +396,12 @@ const Profile = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.1,
-    backgroundColor: "pink",
+    // flex: 0.1,
     marginVertical: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginHorizontal: 10,
   },
   Image: {
     width: "100%",
@@ -362,9 +409,9 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    width: 400,
-    // height: 300,
-    marginHorizontal: "auto",
+
+    marginHorizontal: 10,
+
     borderWidth: 0.2,
     backgroundColor: "white",
     borderRadius: 10,
