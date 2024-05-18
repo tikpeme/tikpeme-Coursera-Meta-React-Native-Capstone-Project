@@ -123,7 +123,14 @@ const Onboarding = () => {
               onPress={handlePressOutside}
               style={OnboardingScreenStyles.FormElment}
             >
-              <Text style={OnboardingScreenStyles.Label}>First Name</Text>
+              <Text
+                style={[
+                  OnboardingScreenStyles.Label,
+                  { alignSelf: "flex-start" },
+                ]}
+              >
+                First Name*
+              </Text>
               <TextInput
                 value={firstName}
                 onChangeText={setFirstName}
@@ -135,7 +142,14 @@ const Onboarding = () => {
               onPress={handlePressOutside}
               style={OnboardingScreenStyles.FormElment}
             >
-              <Text style={OnboardingScreenStyles.Label}>Email</Text>
+              <Text
+                style={[
+                  OnboardingScreenStyles.Label,
+                  { alignSelf: "flex-start" },
+                ]}
+              >
+                Email*
+              </Text>
               <TextInput
                 value={email}
                 onChangeText={setEmail}
@@ -167,13 +181,13 @@ const OnboardingScreenStyles = StyleSheet.create({
     backgroundColor: "#cad2d9",
   },
   Header: {
-    backgroundColor: "#dee3e9",
     flex: 0,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 50,
     paddingBottom: 10,
+    backgroundColor: "#f0f4f7",
   },
   HeaderLogo: {
     //...{ borderColor: "red", borderWidth: 2 },
@@ -185,6 +199,7 @@ const OnboardingScreenStyles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 65,
+    backgroundColor: "#F4CE14",
 
     //width: 700,
     // ...{ borderColor: "red", borderWidth: 2 },
@@ -230,7 +245,8 @@ const OnboardingScreenStyles = StyleSheet.create({
 
   Footer: {
     height: 150,
-    backgroundColor: "#f0f4f7",
+    backgroundColor: "#495E57",
+
     color: "#465a69",
   },
 

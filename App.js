@@ -65,12 +65,12 @@ function AppContent() {
     getCredentials();
   }, []);
 
-  useEffect(() => {
-    if (onBoardingStatus === true) {
-      setIsLoading(false);
-      console.log("set is loading to false successfully");
-    }
-  }, [onBoardingStatus]);
+  // useEffect(() => {
+  //   if (onBoardingStatus === true) {
+  //     setIsLoading(false);
+  //     console.log("set is loading to false successfully");
+  //   }
+  // }, [onBoardingStatus]);
 
   // useEffect(() => {
   //   console.log(firstName, email, onBoardingStatus);
@@ -80,10 +80,10 @@ function AppContent() {
     return <SplashScreen />;
   }
 
-  console.log(
-    "App component rendered successfully",
-    "Onboarding status is " + onBoardingStatus
-  );
+  // console.log(
+  //   "App component rendered successfully",
+  //   "Onboarding status is " + onBoardingStatus
+  // );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -101,6 +101,7 @@ function AppContent() {
           ) : (
             <>
               <Stack.Screen name="Home" component={Home}></Stack.Screen>
+
               <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
             </>
           )}

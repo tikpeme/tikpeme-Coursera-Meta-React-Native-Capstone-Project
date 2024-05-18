@@ -91,8 +91,11 @@ const Profile = ({ navigation }) => {
     } catch (error) {
       console.error("Error saving data: ", error);
     }
-
     //displayAllData();
+  };
+
+  const handleDiscardChanges = () => {
+    navigation.navigate("Profile");
   };
 
   const logOut = async () => {
@@ -121,7 +124,7 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    displayAllData();
+    //displayAllData();
 
     const getProfileData = async () => {
       try {
@@ -154,7 +157,9 @@ const Profile = ({ navigation }) => {
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         <View style={styles.header}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
+            onPress={() =>
+              navigation.navigate("Home", { key: Math.random().toString() })
+            }
             style={{
               backgroundColor: "#495E57",
               borderRadius: "100%",
@@ -274,7 +279,8 @@ const Profile = ({ navigation }) => {
                 type="custom"
                 placeholder="999-999-9999"
                 onChangeText={setPhoneNumber}
-              ></MaskedTextInput>
+                value={phoneNumber}
+              />
             </View>
           </View>
 
@@ -359,7 +365,8 @@ const Profile = ({ navigation }) => {
               marginVertical: 40,
             }}
           >
-            <View
+            <Pressable
+              onPress={handleDiscardChanges}
               style={{
                 backgroundColor: "white",
                 alignItems: "center",
@@ -372,9 +379,9 @@ const Profile = ({ navigation }) => {
               }}
             >
               <Text>Discard changes</Text>
-            </View>
+            </Pressable>
 
-            <Pressable
+            <TouchableOpacity
               style={{
                 backgroundColor: "#495e57",
                 alignItems: "center",
@@ -385,8 +392,8 @@ const Profile = ({ navigation }) => {
               }}
               onPress={handleSaveChanges}
             >
-              <Text style={{ color: "white" }}>Save Changed </Text>
-            </Pressable>
+              <Text style={{ color: "white" }}>Save Changes </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

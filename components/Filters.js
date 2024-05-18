@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   View,
   Text,
@@ -15,6 +16,11 @@ import {
 } from "react-native";
 
 const Filters = ({ onChange, selections, sections }) => {
+  const [active, setActive] = useState(false);
+
+  const toggleState = () => {
+    setActive((prev) => !prev);
+  };
   return (
     <View>
       <ScrollView
@@ -22,21 +28,23 @@ const Filters = ({ onChange, selections, sections }) => {
           //marginBottom: 16,
           borderBottomWidth: 0.5,
           backgroundColor: "#F4CE14",
-          paddingVertical: 15,
+          paddingVertical: 12,
         }}
-        contentContainerStyle={{
-          flex: 1,
-        }}
+        contentContainerStyle={
+          {
+            //flex: 1, // Remove this to allow free scrolling
+          }
+        }
         horizontal={true}
       >
         <View
           style={{
             flexDirection: "row",
             //borderWidth: 1,
-            //gap: 100,
+            gap: 30,
             alignItems: "center",
             flex: 1,
-            justifyContent: "space-around",
+            //justifyContent: "space-around",
           }}
         >
           {sections.map((section, index) => (
@@ -73,6 +81,35 @@ const Filters = ({ onChange, selections, sections }) => {
               </View>
             </TouchableOpacity>
           ))}
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+            }}
+            onPress={() => toggleState()}
+          >
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                borderWidth: 1,
+                borderColor: "black",
+                borderRadius: 16,
+                backgroundColor: active ? "#495E57" : "#EDEFEE",
+              }}
+            >
+              <Text
+                style={{
+                  color: active ? "white" : "#495E57",
+                  fontSize: 16,
+                  fontWeight: 800,
+                }}
+              >
+                Drinks
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

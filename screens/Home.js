@@ -37,9 +37,10 @@ import debounce from "lodash.debounce";
 
 import { useUpdateEffect } from "../utils/useUpdateEffect.js";
 import Filters from "../components/Filters.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Home = ({ navigation }) => {
-  const { firstName, image, lastName } = useContext(personalDataContext);
+const Home = ({ navigation, route }) => {
+  const { firstName, lastName } = useContext(personalDataContext);
 
   const [menuData, setMenuData] = useState([]);
   const [display, setDisplay] = useState([]);
@@ -47,7 +48,7 @@ const Home = ({ navigation }) => {
   const [filterSelections, setFilterSelections] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchBarText, setSearchBarText] = useState("");
-
+  const [image, setImage] = useState("");
   useEffect(() => {
     //Write conditional to check for if the database is empty or not
     (async () => {
@@ -76,8 +77,21 @@ const Home = ({ navigation }) => {
       }
     })();
 
+    //Get image on component render
+
     //displayMenuItems();
   }, []);
+
+  useEffect(() => {
+    const getProfileImage = async () => {
+      //console.log("Get image on component render");
+      try {
+        const image_ = await AsyncStorage.getItem("Image");
+        image_ && setImage(image_);
+      } catch (error) {}
+    };
+    getProfileImage();
+  }, [route.params?.key]);
 
   //Extract the categories from the menu items and create filter selection array
   useUpdateEffect(() => {
