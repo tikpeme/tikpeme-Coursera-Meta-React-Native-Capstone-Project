@@ -23,6 +23,17 @@ const Filters = ({ onChange, selections, sections }) => {
   };
   return (
     <View>
+      <Text
+        style={{
+          backgroundColor: "#F4CE14",
+          paddingTop: 10,
+          fontSize: 20,
+          fontWeight: "bold",
+          paddingLeft: 10,
+        }}
+      >
+        ORDER FOR DELIVERY!
+      </Text>
       <ScrollView
         style={{
           //marginBottom: 16,

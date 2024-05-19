@@ -84,10 +84,11 @@ const Home = ({ navigation, route }) => {
 
   useEffect(() => {
     const getProfileImage = async () => {
-      //console.log("Get image on component render");
+      console.log("Get image on component render");
       try {
         const image_ = await AsyncStorage.getItem("Image");
-        image_ && setImage(image_);
+        console.log("Image: " + image_);
+        image_ ? setImage(image_) : setImage("");
       } catch (error) {}
     };
     getProfileImage();

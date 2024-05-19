@@ -52,7 +52,7 @@ const Profile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    ////console.log(firstName, lastName, phoneNumber, image);
+    //console.log(image, firstName);
   }, [emailPreferences, image, lastName, phoneNumber, firstName]);
 
   const handlePressOutside = () => {
@@ -119,8 +119,6 @@ const Profile = ({ navigation }) => {
       SpecialOffers: false,
       NewsLetter: false,
     });
-    console.log(email, firstName);
-    //navigation.popToTop();
   };
 
   useEffect(() => {
@@ -132,6 +130,7 @@ const Profile = ({ navigation }) => {
         const last_Name = await AsyncStorage.getItem("Last_Name");
         const email_ = await AsyncStorage.getItem("Email");
         const image_ = await AsyncStorage.getItem("Image");
+        //console.log("Profile.js : ", image_);
         const phone_Number = await AsyncStorage.getItem("Phone_Number");
         const email_Preferences = await AsyncStorage.getItem(
           "Email_Preference"
@@ -140,7 +139,7 @@ const Profile = ({ navigation }) => {
         first_Name && setFirstName(first_Name);
         last_Name && setLastName(last_Name);
         email_ && setEmail(email_);
-        image_ && setImage(image_);
+        image_ ? setImage(image_) : setImage("");
         phone_Number && setPhoneNumber(phone_Number);
         email_Preferences &&
           setEmailPreferences((prev) => JSON.parse(email_Preferences));
@@ -222,7 +221,7 @@ const Profile = ({ navigation }) => {
 
             <TouchableOpacity
               style={styles.ChangeImageButton}
-              onPress={handleImagePickerPress}
+              onPress={() => handleImagePickerPress()}
             >
               <Text style={styles.ChangeImageButtonText}>Change</Text>
             </TouchableOpacity>
@@ -348,7 +347,7 @@ const Profile = ({ navigation }) => {
                 uncheckedIcon="checkbox-blank-outline"
                 checkedColor="blue"
               />
-              <Text style={styles.NotiificationDetail}>NewsLetter</Text>
+              <Text style={styles.NotiificationDetail}>News Letter</Text>
             </Pressable>
           </View>
           <Pressable style={styles.LogoutButton} onPress={logOut}>
